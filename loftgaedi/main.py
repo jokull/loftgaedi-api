@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from . import crud, models, schemas
 from .database import SessionLocal, engine
+from .scrape import scrape
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -37,3 +38,11 @@ def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depends(ge
 @app.get("/", response_model=List[schemas.Station])
 def get_stations(db: Session = Depends(get_db)):
     return crud.get_stations(db=db)
+
+
+@app.get("/scrape")
+def get_scrape(db: Session = Depends(get_db)):
+    scraped = []
+    for name, status in scrape(db):
+        scraped.append([name, status])
+    return {"scraped": scraped}
