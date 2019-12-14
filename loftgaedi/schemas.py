@@ -1,5 +1,14 @@
-from typing import Dict, Optional
+from typing import Dict, Optional, List
 from pydantic import BaseModel
+
+
+class Stat(BaseModel):
+    key: str
+    value: str = None
+    status: int = None
+
+    class Config:
+        orm_mode = True
 
 
 class StationBase(BaseModel):
@@ -13,6 +22,7 @@ class StationBase(BaseModel):
 class Station(StationBase):
     id: int
     measurements: Dict[str, Optional[str]]
+    stats: List[Stat]
 
     class Config:
         orm_mode = True

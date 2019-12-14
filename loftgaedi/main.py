@@ -37,6 +37,8 @@ def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depends(ge
 
 @app.get("/", response_model=List[schemas.Station])
 def get_stations(db: Session = Depends(get_db)):
+    stations = crud.get_stations(db=db)
+    print(stations[0].stats)
     return crud.get_stations(db=db)
 
 
