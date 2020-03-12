@@ -35,7 +35,7 @@ csv_headers = {
 
 color_status_map = {
     "#3ab734": 1,  # Mjög gott
-    "#80c75e": 2,  # Gott
+    "#b5cf87": 2,  # Gott
     "#efef33": 3,  # Miðlungs
     "#e2791b": 4,  # Slæmt
     "#f13838": 5,  # Mjög slæmt
@@ -82,7 +82,7 @@ def get_clean_station_data(station_data):
         "id": station_data["id"],
         "name": name.strip(" "),
         "comment": comment,
-        "status": color_status_map[station_data["colorCode"]],
+        "status": color_status_map[station_data["colorCode"].lower()],
         "latitude": station_data["lat"],
         "longitude": station_data["lon"],
     }
